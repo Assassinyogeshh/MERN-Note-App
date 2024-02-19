@@ -39,7 +39,7 @@ const Navbar = () => {
           </li>
         </Link>
 
-        <li className="flex w-[25rem] ml-[2.9rem] h-full justify-evenly items-center text-base cursor-pointer xs:text-[10px] xs:w-[15rem] xs:ml-2 xm:gap-y-[2rem] xm:text-[12px] xm:w-[11rem] xm:ml-[1rem] sm:w-[20rem] sm:text-[18px]">
+        <li className="flex w-[25rem] ml-[2.9rem] h-full justify-evenly items-center text-base cursor-pointer xs:text-[10px] xs:w-[15rem] xs:ml-2 xm:gap-y-[2rem] xm:text-[12px] xm:w-[11rem] xm:ml-[1rem] sm:w-[18rem] sm:text-[18px]">
           <Link to={"/"}>
             <p>Home</p>
           </Link>
@@ -52,18 +52,18 @@ const Navbar = () => {
           <li>
             <button
               className=" hover:bg-cyan-800 hover:text-white h-[2rem] border border-solid border-black rounded-2xl w-[6.5rem] xs:text-[9px] xs:w-[3rem]
-          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] text-[11px] sm:w-[5.5rem] sm:h-[2rem] sm:text-[20px]"
+          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] xm:text-[11px] text-[15px] "
               onClick={handleLogout}
             >
               Logout
             </button>
           </li>
         ) : (
-          <li className="flex w-[250px] h-full items-center justify-evenly xs:w-[200px] xm:w-[150px] sm:w-[190px]">
+          <li className="flex w-[250px] h-full items-center justify-evenly xs:w-[200px] xm:w-[150px] ">
             <Link to={"/auth/register"}>
               <button
                 className=" hover:bg-cyan-800 hover:text-white h-[2rem] border border-solid border-black rounded-2xl w-[6.5rem] xs:text-[9px] xs:w-[3rem]
-          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] text-[11px] sm:w-[5.5rem] sm:h-[2rem] sm:text-[20px]"
+          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] xm:text-[11px] text-[15px] "
               >
                 Sign Up
               </button>
@@ -71,7 +71,7 @@ const Navbar = () => {
             <Link to={"/auth/login"}>
               <button
                 className=" hover:bg-cyan-800 hover:text-white h-[2rem] border border-solid border-black rounded-2xl w-[6.5rem] xs:text-[9px] xs:w-[3rem]
-          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] text-[11px] sm:w-[5.5rem] sm:h-[2rem] sm:text-[20px]"
+          xs:h-[1rem] justify-center items-center flex xm:h-[1.5rem] xm:w-[3.9rem] xm:text-[11px] text-[15px] "
               >
                 Sign In
               </button>
