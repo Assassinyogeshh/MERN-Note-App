@@ -56,7 +56,7 @@ export const register = async (req, res) => {
 
     const userData = await userAuth.create({ userName, email, password: hashPassword, C_password: hashPassword });
 
-    const token = jwt.sign({ email: newUserData.email, id: newUserData._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+    const token = jwt.sign({ email: userData.email, id: userData._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
 
     return res.status(200).json({ message: "User successfully registered", token, userData });
   } catch (error) {
