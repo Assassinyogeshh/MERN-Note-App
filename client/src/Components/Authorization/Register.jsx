@@ -26,9 +26,10 @@ const Register = () => {
 
   const { handleChange, handleSubmit, values } = useFormik({
     initialValues,
-    onSubmit: (values) => {
+    onSubmit: (values, Action) => {
       try {
         dispatch(register(values));
+         Action.resetForm();
       } catch (error) {
         console.log(error);
         alert("Registration Failed");
