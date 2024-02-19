@@ -26,6 +26,7 @@ const Login = () => {
     onSubmit: async (values, Action) => {
       try {
         dispatch(login(values));
+         Action.resetForm();
       } catch (error) {
         console.log(error);
         alert("Login Failed");
