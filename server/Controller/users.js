@@ -42,9 +42,9 @@ export const register = async (req, res) => {
       return res.status(404).json("Fill the appropriate field")
     }
 
-    const userData = await userAuth.findOne({ email });
+    const userData1 = await userAuth.findOne({ email });
 
-    if (userData) {
+    if (userData1) {
       return res.status(409).send('User Already Exist');
     }
 
@@ -54,11 +54,11 @@ export const register = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 12);
 
-    const newUserData = await userAuth.create({ userName, email, password: hashPassword, C_password: hashPassword });
+    const userData = await userAuth.create({ userName, email, password: hashPassword, C_password: hashPassword });
 
     const token = jwt.sign({ email: newUserData.email, id: newUserData._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
 
-    return res.status(200).json({ message: "User successfully registered", token, newUserData });
+    return res.status(200).json({ message: "User successfully registered", token, userData });
   } catch (error) {
     console.log(error);
     return res.status(500).json("Failed To register user")
