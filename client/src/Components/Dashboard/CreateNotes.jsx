@@ -8,7 +8,7 @@ const CreateNotes = () => {
   return (
     <>
       <div className="w-[100%] flex-col items-center justify-center h-[92vh] xs:h-[95vh] bg-yellow-500 box-border">
-        <div className="flex justify-between items-center w-[85%] h-[10vh] ml-[8rem] xs:ml-[1rem] xm:ml-[10rem] sm:ml-12">
+        <div className="flex justify-between items-center w-[85%] h-[10vh] ml-[8rem] xs:ml-[1rem] xm:ml-[3rem] sm:ml-12">
           <h1 className="font-[700] text-[25px] text-cyan-950 xs:text-[1.1rem] xs:font-[600]">
             Hey,{userName}
           </h1>
