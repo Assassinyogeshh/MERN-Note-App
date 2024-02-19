@@ -48,7 +48,7 @@ const Register = () => {
         >
           <span className="flex flex-col justify-start items-start w-[80%]">
             <label
-              htmlFor="text"
+              htmlFor="userName"
               className="font-[600] text-[1.1rem] leading-[1rem]"
             >
               Username
