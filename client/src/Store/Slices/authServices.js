@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const api = 'https://mern-notes-app-wbp8.onrender.com';
-const api = 'http://localhost:3000';
+const api = 'https://mern-notes-app-wbp8.onrender.com';
+
 
 const login = async (userData) => {
 

@@ -45,11 +45,7 @@ export const register = async (req, res) => {
     const userData1 = await userAuth.findOne({ email });
 
     if (userData1) {
-<<<<<<< HEAD
       return res.status(409).json({message:'User Already Exist'});
-=======
-      return res.status(409).send('User Already Exist');
->>>>>>> 7a3fe26ccb543a42a21127e35f220f05045a3cf1
     }
 
     if (password !== C_password) {
