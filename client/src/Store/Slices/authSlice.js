@@ -17,7 +17,7 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
         return await authServices.register(user);
     } catch (error) {
         const errorMessage = error.response ? error.response.data : 'Unknown error';
-        alert(errorMessage)
+        alert(errorMessage.message)
         return thunkAPI.rejectWithValue({ message: errorMessage });
     }
 });
@@ -29,7 +29,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
        return await authServices.login(user);
     } catch (error) {
         const errorMessage = error.response ? error.response.data : 'Unknown error';
-        alert(errorMessage)
+        alert(errorMessage.message)
         return thunkAPI.rejectWithValue({ message: errorMessage });
     }
 });
