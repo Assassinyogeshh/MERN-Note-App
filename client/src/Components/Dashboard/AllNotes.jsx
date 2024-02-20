@@ -129,7 +129,7 @@ console.log(data);
           <div className="w-[96%] h-[72vh] mt-[1rem] pt-5 grid grid-cols-3">
             
             { !isLoading ? 
-                (  Array.isArray(data) && data && data.length>0 ? (
+                (  Array.isArray(data) && data ? (
               data.map((item, index) => (
                 <div
                   key={index}
