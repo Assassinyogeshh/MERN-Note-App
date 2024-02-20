@@ -31,7 +31,7 @@ console.log(fetchedNotes);
   }, [fetchedNotes]);
 
  
-console.log(data);
+
 
   const handleSearch = async () => {
     try {
@@ -128,8 +128,8 @@ console.log(data);
             
           <div className="w-[96%] h-[72vh] mt-[1rem] pt-5 grid grid-cols-3">
             
-            { !isLoading ? 
-                (  Array.isArray(data) && data ? (
+            { !isLoading && data && Array.isArray(data)? 
+                ( data.length > 0 ? (
               data.map((item, index) => (
                 <div
                   key={index}
@@ -150,7 +150,7 @@ console.log(data);
               ))
             ) : (
               <div className="flex justify-center items-center text-[5rem] font-[700] w-[95vw] h-[100%] text-gray-700">
-               No data
+              no data
               </div>
             )):(  
               <div className="cell grid col-span-3 items-center justify-items-center row-span-3 text-gray-700">
