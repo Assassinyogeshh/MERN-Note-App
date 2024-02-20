@@ -51,6 +51,10 @@ export const fetchAllNotes = async (req, res) => {
 
         const getNotes = await schemaNotes.findOne({ userNotesId: userId })
 
+           if (!getNotes) {
+            console.log('not found');
+            return res.status(404).json('Note not found')
+        }
 
         const totalData = getNotes.allNotes;
         const totalNotes = totalData.length;
