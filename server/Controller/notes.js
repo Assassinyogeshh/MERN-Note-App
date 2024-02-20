@@ -53,7 +53,7 @@ export const fetchAllNotes = async (req, res) => {
 
 
         if (!getNotes) {
-            return res.send('no data')
+            return res.status(404).send('no data')
         }
 
         const totalData = getNotes.allNotes;
