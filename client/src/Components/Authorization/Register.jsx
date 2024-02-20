@@ -28,6 +28,7 @@ const Register = () => {
 
   const { handleChange, handleSubmit, values } = useFormik({
     initialValues,
+<<<<<<< HEAD
     onSubmit: (values,Action) => {
       try {
         dispatch(register(values));
@@ -36,6 +37,12 @@ const Register = () => {
         }
        navigate('/')
         Action.resetForm();
+=======
+    onSubmit: (values, Action) => {
+      try {
+        dispatch(register(values));
+         Action.resetForm();
+>>>>>>> 7a3fe26ccb543a42a21127e35f220f05045a3cf1
       } catch (error) {
         console.log(error.response);
       }

@@ -27,8 +27,13 @@ const Login = () => {
     initialValues,
     onSubmit: async (values, Action) => {
       try {
+<<<<<<< HEAD
        dispatch(login(values));
         Action.resetForm();
+=======
+        dispatch(login(values));
+         Action.resetForm();
+>>>>>>> 7a3fe26ccb543a42a21127e35f220f05045a3cf1
       } catch (error) {
         console.log(error);
       }
