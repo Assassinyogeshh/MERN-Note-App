@@ -10,13 +10,13 @@ export const login = async (req, res) => {
     const userData = await userAuth.findOne({ email });
     if (!userData) {
       console.log(userData);
-      return res.status(404).send('Invalid Credentials');
+      return res.status(404).json({message:'Invalid Credentials'});
     }
 
     const checkPassword = await bcrypt.compare(password, userData.password);
 
     if (!checkPassword) {
-      return res.status(404).send('Invalid Credentials');
+      return res.status(404).json({message:'Invalid Credentials'});
     }
 
     const token = jwt.sign({ email: userData.email, id: userData._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
@@ -42,25 +42,25 @@ export const register = async (req, res) => {
       return res.status(404).json("Fill the appropriate field")
     }
 
-    const userData = await userAuth.findOne({ email });
+    const userData1 = await userAuth.findOne({ email });
 
-    if (userData) {
-      return res.status(409).send('User Already Exist');
+    if (userData1) {
+      return res.status(409).json({message:'User Already Exist'});
     }
 
     if (password !== C_password) {
-      return res.status(400).json("Password should match with confirm password")
+      return res.status(400).json({message:"Password should match with confirm password"})
     }
 
     const hashPassword = await bcrypt.hash(password, 12);
 
-    const newUserData = await userAuth.create({ userName, email, password: hashPassword, C_password: hashPassword });
+    const userData = await userAuth.create({ userName, email, password: hashPassword, C_password: hashPassword });
 
-    const token = jwt.sign({ email: newUserData.email, id: newUserData._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+    const token = jwt.sign({ email: userData.email, id: userData._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
 
-    return res.status(200).json({ message: "User successfully registered", token, newUserData });
+    return res.status(200).json({ message: "User successfully registered", token, userData });
   } catch (error) {
     console.log(error);
-    return res.status(500).json("Failed To register user")
+    return res.status(500).json({message:"Failed To register user"})
   }
 }

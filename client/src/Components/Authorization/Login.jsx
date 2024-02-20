@@ -3,18 +3,20 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Store/Slices/authSlice";
 import { useNavigate } from "react-router";
+import Loading from "../loading/loading";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = useSelector((state) => state.auth.user);
+ const isLoading=useSelector(state=>state.auth.isLoading)
 
-  useEffect(() => {
-    if (data && data.message) {
-      alert(data.message);
-      navigate("/");
-    }
-  }, [data, navigate]);
+ const data = useSelector((state) => state.auth.user);
+ useEffect(() => {
+  if (data && data.message) {
+    alert(data.message);
+    navigate("/");
+  }
+}, [data, navigate]);
 
   const initialValues = {
     email: "",
@@ -25,16 +27,17 @@ const Login = () => {
     initialValues,
     onSubmit: async (values, Action) => {
       try {
-        dispatch(login(values));
+       dispatch(login(values));
+        Action.resetForm();
       } catch (error) {
         console.log(error);
-        alert("Login Failed");
       }
     },
   });
 
   return (
     <>
+    {!isLoading ?(
       <div className="h-[92vh] w-[100%] xs:h-[95vh] flex flex-col justify-center items-center bg-yellow-500">
         <h1 className="text-[2rem] font-[700] tracking-wider text-gray-800">
           Login
@@ -84,6 +87,7 @@ const Login = () => {
           </button>
         </form>
       </div>
+      ) :(<div className="h-[92vh] w-[100%] xs:h-[95vh] flex justify-center items-center bg-yellow-500"><Loading/></div>)}
     </>
   );
 };

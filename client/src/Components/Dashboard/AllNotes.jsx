@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNotes } from "../../Store/Slices/noteSlice/notesSlice";
 import { Link } from "react-router-dom";
+import Loading from "../loading/loading";
 
 const AllNotes = () => {
   const [query, setQuery] = useState("");
@@ -13,6 +14,9 @@ const AllNotes = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const userName = user ? user.userData.userName : null;
   const fetchedNotes = useSelector((state) => state.userNote?.note);
+  const isLoading = useSelector((state) => state.userNote.isLoading);
+ 
+console.log(fetchedNotes);
   useEffect(() => {
     dispatch(fetchNotes(currentPage));
   }, [currentPage]);
@@ -25,6 +29,9 @@ const AllNotes = () => {
       setData(fetchedNotes.data);
     }
   }, [fetchedNotes]);
+
+ 
+console.log(data);
 
   const handleSearch = async () => {
     try {
@@ -42,8 +49,9 @@ const AllNotes = () => {
           "Content-Type": "application/json",
         },
       };
+       
       const response = await fetch(
-        `http://localhost:3000/note/searchNotes?query=${query}`,
+        `https://mern-notes-app-wbp8.onrender.com/note/searchNotes?query=${query}`,
         config
       );
       if (!response.ok) {
@@ -89,15 +97,9 @@ const AllNotes = () => {
 
         {result ? (
           <div className="w-[96%] h-[75vh] mt-[1rem] pt-5 grid grid-cols-3">
-            {result.length < 1 && (
-              <div
-                className="w-[95vw] h-[100%] flex justify-center items-center text-[2.5rem]
-            font-[700] text-sky-950"
-              >
-                No Note
-              </div>
-            )}
-            {result.map((item, index) => (
+           
+              {result.length > 0 ? (
+                        result.map((item, index) => (
               <div
                 key={index}
                 className="bg-white overflow-hidden flex justify-start items-start flex-col gap-x-[0.5rem] w-[99%] gap-y-[0.5rem] border bottom-solid box-border p-3 cursor-pointer xs:h-[90%]"
@@ -114,11 +116,20 @@ const AllNotes = () => {
                   </p>
                 </Link>
               </div>
-            ))}
+            ))
+            ): (<div
+            className="w-[95vw] h-[100%] flex justify-center items-center text-[2.5rem]
+        font-[700] text-sky-950"
+          >
+            No Note
+          </div>)}
           </div>
         ) : (
+            
           <div className="w-[96%] h-[72vh] mt-[1rem] pt-5 grid grid-cols-3">
-            {Array.isArray(data) && data ? (
+            
+            { !isLoading ? 
+                (  Array.isArray(data) && data && data.length>0 ? (
               data.map((item, index) => (
                 <div
                   key={index}
@@ -139,10 +150,15 @@ const AllNotes = () => {
               ))
             ) : (
               <div className="flex justify-center items-center text-[5rem] font-[700] w-[95vw] h-[100%] text-gray-700">
-                Loading...
+               No data
               </div>
-            )}
+            )):(  
+              <div className="cell grid col-span-3 items-center justify-items-center row-span-3 text-gray-700">
+              <Loading />
+              </div>
+)}
           </div>
+          
         )}
 
         <ul className="mt-[0.5rem] bg-slate-700 w-[90%] flex justify-center items-center gap-x-[2rem]">

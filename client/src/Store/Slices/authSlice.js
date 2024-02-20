@@ -12,14 +12,13 @@ const initialState = {
 }
 
 
-
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
     try {
         return await authServices.register(user);
     } catch (error) {
-        const message = (error.response && error.response.data && error.message);
-
-        return thunkAPI.rejectWithValue(message);
+        const errorMessage = error.response ? error.response.data : 'Unknown error';
+        alert(errorMessage)
+        return thunkAPI.rejectWithValue({ message: errorMessage });
     }
 });
 
@@ -27,17 +26,17 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     try {
 
-        return await authServices.login(user);
+       return await authServices.login(user);
     } catch (error) {
-        const message = (error.response && error.response.data && error.message);
-
-        return thunkAPI.rejectWithValue(message);
+        const errorMessage = error.response ? error.response.data : 'Unknown error';
+        alert(errorMessage)
+        return thunkAPI.rejectWithValue({ message: errorMessage });
     }
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
     await authServices.logout();
-     return null;
+    return null;
 });
 
 

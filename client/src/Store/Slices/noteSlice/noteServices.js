@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = 'http://localhost:3000';
+const api = 'https://mern-notes-app-wbp8.onrender.com';
 
 
 const addNote = async (noteData) => {
@@ -20,7 +20,7 @@ const addNote = async (noteData) => {
     }
 
     const response = await axios.post(`${api}/note/addNotes`, noteData, config);
-    console.log(response);
+   
 }
 
 const fetchNotes = async (pageNum) => {
@@ -41,7 +41,7 @@ const fetchNotes = async (pageNum) => {
 
     const response = await axios.get(`${api}/note/fetchNotes?page=${pageNum}`, config);
 
- 
+ console.log(response.data);
     return response.data
 }
 

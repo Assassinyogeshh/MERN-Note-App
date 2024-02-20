@@ -3,19 +3,21 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../Store/Slices/authSlice";
 import { useNavigate } from "react-router";
-
+import Loading from "../loading/loading";
 const Register = () => {
-  const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.auth.user);
+  const isLoading=useSelector(state=>state.auth.isLoading)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (data && data.message) {
-      alert(data.message);
-      navigate("/");
-    }
-  }, [data, navigate]);
+  const data = useSelector((state) => state.auth.user);
+ useEffect(() => {
+  if (data && data.message) {
+    alert(data.message);
+    navigate("/");
+  }
+}, [data, navigate]);
+
 
   const initialValues = {
     userName: "",
@@ -26,18 +28,23 @@ const Register = () => {
 
   const { handleChange, handleSubmit, values } = useFormik({
     initialValues,
-    onSubmit: (values) => {
+    onSubmit: (values,Action) => {
       try {
         dispatch(register(values));
+        if (checkUser) {
+          alert('Successfully Login')
+        }
+       navigate('/')
+        Action.resetForm();
       } catch (error) {
-        console.log(error);
-        alert("Registration Failed");
+        console.log(error.response);
       }
     },
   });
 
   return (
     <>
+        {!isLoading ?(
       <div className="h-[92vh] w-[100%] xs:h-[95vh] flex flex-col justify-center items-center bg-yellow-500">
         <h1 className="text-[2rem] font-[700] tracking-wider text-gray-800">
           Register
@@ -48,7 +55,7 @@ const Register = () => {
         >
           <span className="flex flex-col justify-start items-start w-[80%]">
             <label
-              htmlFor="text"
+              htmlFor="userName"
               className="font-[600] text-[1.1rem] leading-[1rem]"
             >
               Username
@@ -123,6 +130,7 @@ const Register = () => {
           </button>
         </form>
       </div>
+       ) :(<div className="h-[92vh] w-[100%] xs:h-[95vh] flex justify-center items-center bg-yellow-500"><Loading/></div>)}
     </>
   );
 };

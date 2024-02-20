@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// const api = 'https://mern-notes-app-wbp8.onrender.com';
 const api = 'http://localhost:3000';
 
 const login = async (userData) => {
@@ -10,8 +11,7 @@ const login = async (userData) => {
         localStorage.setItem('user', JSON.stringify(response.data));
     }
 
-
-    return response.data;
+    return response.data
 }
 
 const register = async (userData) => {
@@ -25,7 +25,7 @@ const register = async (userData) => {
 }
 
 const logout = async () => {
-   localStorage.removeItem('user');
+    localStorage.removeItem('user');
 }
 
 const authServices = {
