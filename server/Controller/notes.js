@@ -88,7 +88,7 @@ export const fetchEachNote = async (req, res) => {
         const data = singleNote.allNotes.find(note => note._id.toString() === _id);
 
 
-        return res.status(200).send(data);
+        return res.status(200).JSON(data);
     } catch (error) {
 
         return res.status(500).send("Failed to fetch Note")
