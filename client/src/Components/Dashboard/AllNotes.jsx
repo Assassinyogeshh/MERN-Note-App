@@ -16,7 +16,6 @@ const AllNotes = () => {
   const fetchedNotes = useSelector((state) => state.userNote?.note);
   const isLoading = useSelector((state) => state.userNote.isLoading);
  
-console.log(fetchedNotes);
   useEffect(() => {
     dispatch(fetchNotes(currentPage));
   }, [currentPage]);
@@ -65,11 +64,12 @@ console.log(fetchedNotes);
       console.error("Error:", error);
     }
   };
+
   return (
     <>
-      <div className="w-[100%] flex flex-col items-center h-[92vh] bg-yellow-500">
+      <div className="w-[100%] flex flex-col items-center h-[92vh] xs:h-[95vh] bg-yellow-500">
         <div className="flex justify-between items-center w-[92%]">
-          <h1 className="font-[700] text-[25px] text-cyan-950 xs:text-[14px] xm:text-[17px] sm:text-[20px]">
+          <h1 className="font-[700] text-[25px] text-cyan-950 xs:text-[10px] xm:text-[14px] sm:text-[17px]">
             Hey,{userName}
           </h1>
 
@@ -79,17 +79,17 @@ console.log(fetchedNotes);
               placeholder="search notes"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-[20rem] h-[2.3rem] xm:w-[80%] xs:h-[1.8rem] xs:w-[50%] sm:w-[17rem] "
+              className="w-[20rem] h-[2.3rem] xm:w-[70%] xs:text-[10px] xm:h-[1.2rem] xm:text-[12px] outline-none xs:h-[1.1rem] xs:w-[50%] sm:w-[17rem] rounded-[1rem] pl-2"
             />
             <button
-              className="border h-[2.3rem] w-[8rem] hover:bg-white xs:w-[4rem] xs:h-[1.5rem] xs:text-[14px] xm:w-[5rem] xm:text-[16px] xm:h-[1.8rem] sm:w-[7rem]"
+              className="border rounded-[1rem] h-[2.3rem] w-[8rem] hover:bg-white xs:w-[4rem] xs:h-[1.1rem] xs:text-[9.5px] xm:w-[5rem] xm:text-[11px] xm:h-[1.2rem] sm:w-[7rem]"
               onClick={handleSearch}
             >
               Submit
             </button>
           </span>
           <Link to={"/note/addNotes"}>
-            <button className="border text-[13px] rounded-[1rem] bg-cyan-950 text-white font-[500] w-[7rem] h-[1.8rem] xs:w-[4rem] xs:text-[9px] xs:font-[400] xs:h-[1.5rem] xm:w-[5rem] xm:text-[10px] xm:font-[400] xm:h-[1.8rem] sm:w-[6rem] sm:text-[13px] sm:font-[400]">
+            <button className="border text-[13px] rounded-[1rem] bg-cyan-950 text-white font-[500] w-[7rem] h-[1.8rem] xs:w-[4rem] xs:text-[8.5px] xs:font-[400] xs:h-[1.2rem] xm:w-[5rem] xm:text-[9px] xm:font-[500] xm:h-[1.3rem] sm:w-[6rem] sm:text-[13px] sm:font-[400]">
               +New Note
             </button>
           </Link>
@@ -126,18 +126,18 @@ console.log(fetchedNotes);
           </div>
         ) : (
             
-          <div className="w-[96%] h-[72vh] mt-[1rem] pt-5 grid grid-cols-3">
+          <div className="w-[96%] h-[100%] mt-[1rem]  pt-5 grid grid-cols-3 grid-rows-2">
             
-            { !isLoading && data && Array.isArray(data)? 
-                ( data.length > 0 ? (
+            { !isLoading ? 
+                ( Array.isArray(data)  && data.length > 0 ? (
               data.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white overflow-hidden flex justify-start items-start flex-col gap-x-[0.5rem] w-[99%] gap-y-[0.5rem] border bottom-solid box-border p-3 cursor-pointer xs:h-[90%]"
+                  className="bg-white h-[100%] overflow-hidden flex justify-start border-black items-start flex-col gap-x-[0.5rem] w-[99%] gap-y-[0.5rem] border bottom-solid box-border p-3 cursor-pointer xs:h-[90%]"
                 >
                   <Link
                     to={`/editNotes/${item._id}`}
-                    className="h-[100%] w-[100%] overflow-hidden flex justify-start item-start flex-col gap-x-[0.5rem] gap-y-[0.5rem] xs:gap-y-[2.5rem] xs:leading-[1.1rem] xm:leading-[1.2rem] text-center leading-[1.2rem]"
+                    className="h-full w-full overflow-hidden flex justify-start item-start flex-col gap-x-[0.5rem] gap-y-[0.5rem] xs:gap-y-[2.5rem] xs:leading-[1.1rem] xm:leading-[1.2rem] text-center leading-[1.2rem]"
                   >
                     <p className="mb-[4rem] text-cyan-950 font-[800] text-[1.2rem] w-[100%] h-[10%] capitalize xs:text-[15px] xs:font-[700] xs:mb-[1.5rem]  xm:mb-[1rem] xm:text-[18px] xm:font-[700]">
                       {item.title}
