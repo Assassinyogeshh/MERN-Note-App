@@ -38,7 +38,7 @@ export const addNotes = async (req, res) => {
 export const fetchAllNotes = async (req, res) => {
     try {
         const userId = req.userId;
-        const { page} = req.query || 1;
+        const page = req.query.page || 1;
         const pageSize = 6;
         const skip = (page - 1) * pageSize; 
 
