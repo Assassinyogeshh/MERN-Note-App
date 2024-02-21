@@ -38,9 +38,9 @@ export const addNotes = async (req, res) => {
 export const fetchAllNotes = async (req, res) => {
     try {
         const userId = req.userId;
-        const { page = 1 } = req.query;
+        const { page} = req.query || 1;
         const pageSize = 6;
-        const skip = Math.max(0, (page - 1) * pageSize); // Ensure skip is at least 0
+        const skip = (page - 1) * pageSize; 
 
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized User" });
@@ -54,7 +54,7 @@ export const fetchAllNotes = async (req, res) => {
 
         const totalNotes = userNotes.allNotes.length;
         const totalPage = Math.ceil(totalNotes / pageSize);
-        const data = userNotes.allNotes.slice(skip, skip + pageSize);
+        const data = userNotes.allNotes.skip(skip).limit(pageSize);
 
         return res.status(200).json({ data, totalPage });
     } catch (error) {
