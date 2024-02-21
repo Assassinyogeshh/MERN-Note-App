@@ -35,6 +35,7 @@ export const addNotes = async (req, res) => {
         return res.status(409).send('Failed To Add Note')
     }
 }
+
 export const fetchAllNotes = async (req, res) => {
     try {
         const userId = req.userId;
@@ -45,24 +46,26 @@ export const fetchAllNotes = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized User" });
         }
+        
+        const userNotes = await schemaNotes.findOne({ userNotesId: userId })
+        .select('allNotes')
+        .exec();
 
-        const userNotes = await schemaNotes.findOne({ userNotesId: userId });
-
-        if (!userNotes || !userNotes.allNotes || userNotes.allNotes.length === 0) {
-            return res.status(404).json({ message: "No notes found for this user" });
+        if (!userNotes || userNotes.allNotes.length < 0) {
+            return res.json( {data:null} );
         }
+
+        const limitedNotes = userNotes.allNotes.slice(skip, skip + pageSize);
 
         const totalNotes = userNotes.allNotes.length;
         const totalPage = Math.ceil(totalNotes / pageSize);
-        const data = userNotes.allNotes.skip(skip).limit(pageSize);
-
-        return res.status(200).json({ data, totalPage });
+        
+        return res.status(200).json({ data: limitedNotes, totalPage });
     } catch (error) {
         console.error("Error fetching notes:", error);
         return res.status(500).json({ message: "Failed to fetch the notes" });
     }
 };
-
 
 
 export const fetchEachNote = async (req, res) => {
@@ -84,7 +87,7 @@ export const fetchEachNote = async (req, res) => {
         const data = singleNote.allNotes.find(note => note._id.toString() === _id);
 
 
-        return res.status(200).JSON(data);
+        return res.status(200).json(data);
     } catch (error) {
 
         return res.status(500).send("Failed to fetch Note")
